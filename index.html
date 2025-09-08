@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+    
+    <div class="calculator-container">
+        <h1 class="title">Cool Calculator</h1>
+        
+        <div class="display">
+            <div class="history"></div>
+            <div class="current">0</div>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn clear" data-action="clear">C</button>
+            <button class="btn operator" data-action="backspace">⌫</button>
+            <button class="btn operator" data-action="percent">%</button>
+            <button class="btn operator" data-action="divide">/</button>
+            
+            <button class="btn" data-value="7">7</button>
+            <button class="btn" data-value="8">8</button>
+            <button class="btn" data-value="9">9</button>
+            <button class="btn operator" data-action="multiply">×</button>
+            
+            <button class="btn" data-value="4">4</button>
+            <button class="btn" data-value="5">5</button>
+            <button class="btn" data-value="6">6</button>
+            <button class="btn operator" data-action="subtract">-</button>
+            
+            <button class="btn" data-value="1">1</button>
+            <button class="btn" data-value="2">2</button>
+            <button class="btn" data-value="3">3</button>
+            <button class="btn operator" data-action="add">+</button>
+            
+            <button class="btn" data-action="negate">±</button>
+            <button class="btn" data-value="0">0</button>
+            <button class="btn" data-value=".">.</button>
+            <button class="btn equals" data-action="calculate">=</button>
+        </div>
+        
+        <div class="result-card">
+            <div class="result-title">Calculation Result</div>
+            <div class="result-value">0</div>
+        </div>
+        
+        <div class="history-panel">
+            <h3>Calculation History</h3>
+            <div class="history-list"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

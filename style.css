@@ -1,0 +1,288 @@
+@font-face {
+    font-family: 'ibrand';
+    src: url('font/ibrand.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'ibrand', 'Arial', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+}
+
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.calculator-container {
+    width: 90%;
+    max-width: 500px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.5),
+        0 0 40px rgba(0, 255, 255, 0.3),
+        inset 0 0 15px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    transform: scale(0);
+    animation: zoomIn 1.5s forwards 0.5s;
+    position: relative;
+    overflow: hidden;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #fff;
+    text-shadow: 
+        0 0 10px #0ff,
+        0 0 20px #0ff,
+        0 0 30px #0ff;
+    animation: flicker 3s infinite alternate;
+}
+
+.display {
+    background: rgba(0, 20, 30, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: right;
+    font-size: 2.5rem;
+    min-height: 100px;
+    box-shadow: 
+        inset 0 0 10px rgba(0, 0, 0, 0.5),
+        0 0 10px rgba(0, 255, 255, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.history {
+    font-size: 1rem;
+    color: rgba(0, 255, 255, 0.7);
+    min-height: 25px;
+    margin-bottom: 10px;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.btn {
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: rgba(0, 20, 30, 0.7);
+    color: #fff;
+    box-shadow: 
+        0 0 10px rgba(0, 255, 255, 0.3),
+        inset 0 0 5px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 0 15px rgba(0, 255, 255, 0.5),
+        0 0 25px rgba(0, 255, 255, 0.3);
+    background: rgba(0, 40, 60, 0.7);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.operator {
+    background: rgba(0, 40, 60, 0.7);
+    box-shadow: 
+        0 0 10px rgba(0, 200, 255, 0.5),
+        inset 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+.equals {
+    background: rgba(0, 80, 40, 0.7);
+    box-shadow: 
+        0 0 10px rgba(0, 255, 100, 0.5),
+        inset 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+.clear {
+    background: rgba(80, 0, 0, 0.7);
+    box-shadow: 
+        0 0 10px rgba(255, 50, 50, 0.5),
+        inset 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+.ripple {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+}
+
+.result-card {
+    background: rgba(0, 30, 50, 0.8);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: 
+        0 0 15px rgba(0, 255, 255, 0.5),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.result-card.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.history-panel {
+    background: rgba(0, 30, 50, 0.8);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 
+        0 0 15px rgba(0, 255, 255, 0.5),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.history-panel h3 {
+    margin-bottom: 10px;
+    color: #0ff;
+    text-shadow: 0 0 5px #0ff;
+}
+
+.history-item {
+    padding: 8px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    animation: slideIn 0.3s ease;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow: 
+            0 0 10px #0ff,
+            0 0 20px #0ff,
+            0 0 30px #0ff;
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+        opacity: 0.7;
+    }
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .calculator-container {
+        padding: 15px;
+        width: 95%;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+    
+    .display {
+        font-size: 2rem;
+        padding: 15px;
+    }
+    
+    .btn {
+        padding: 15px;
+        font-size: 1.2rem;
+    }
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #f00;
+    opacity: 0.7;
+    border-radius: 0;
+}
+
+.float-particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #0ff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+}
