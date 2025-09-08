@@ -89,7 +89,7 @@ project/
 
 **Mahdi Nazari**  
 📧 Email: nazarimahdi.pro@gmail.com  
-💼 GitHub: [mahdi-nazari](https://github.com/mahdi-nazari)
+💼 GitHub: https://github.com/NazariMahdi-Pro
 
 ---
 
@@ -104,3 +104,4 @@ This project is licensed under the MIT License - see the LICENSE file for full d
 - Inspired by **cyberpunk UI design** and cinematic web effects  
 - Thanks to **modern web technologies**: CSS3, JavaScript ES6, HTML5, Canvas API  
 - Particle effects inspired by popular interactive UI examples on CodePen and GitHub  
+
